@@ -1,0 +1,83 @@
+# Ansible Inventory: inventory.ini
+
+# =============================================
+# DEVELOPMENT ENVIRONMENT
+# =============================================
+[dev]
+5.home
+6.home
+
+# Variables specific to the dev environment
+[dev:vars]
+environment_name=development
+ansible_user=root
+ansible_ssh_private_key=/home/docke/.ssh/id_rsa
+# =============================================
+# STAGING ENVIRONMENT
+# =============================================
+[staging]
+11.home
+12.home
+13.home
+
+# Variables specific to the staging environment
+[staging:vars]
+environment_name=staging
+ansible_user=root
+ansible_ssh_private_key=/home/docke/.ssh/id_rsa
+
+
+# =============================================
+# PRODUCTION ENVIRONMENT
+# =============================================
+[prod]
+20.home
+21.home
+22.home
+23.home
+
+# Variables specific to the prod environment
+[prod:vars]
+environment_name=production
+ansible_user=root
+ansible_ssh_private_key=/home/docke/.ssh/id_rsa
+
+
+# =============================================
+# FUNCTIONAL GROUPS (by server role)
+# =============================================
+# You can also group servers by their function.
+# This is useful for running role-specific playbooks.
+# Note the use of ranges to simplify listing.
+[webservers]
+6.home
+12.home
+33.home
+
+[dbservers]
+5.home
+13.home
+31.home
+
+[loadbalancers]
+32.home
+
+[monitoring]
+30.home
+
+# =============================================
+# PARENT GROUPS (using :children)
+# =============================================
+# This is the key to grouping your environments.
+# The 'all_environments' group now contains all hosts from dev, staging, and prod.
+[all_environments:children]
+dev
+staging
+prod
+
+# You can also create parent groups for functional roles
+[all_web:children]
+webservers
+
+[all_db:children]
+dbservers

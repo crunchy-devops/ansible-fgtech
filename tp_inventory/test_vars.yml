@@ -1,0 +1,8 @@
+---
+# test_vars.yml
+- name: Tester les variables de groupe
+  hosts: webservers
+  tasks:
+    - name: Afficher le port HTTP et l'utilisateur
+      ansible.builtin.debug:
+        msg: "Hôte {{ inventory_hostname }} utilise le port {{ http_port }} et se connecte en tant que {{ ansible_ssh_user }}"

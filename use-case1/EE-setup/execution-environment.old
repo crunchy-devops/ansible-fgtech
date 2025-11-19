@@ -1,0 +1,22 @@
+# execution-environment.yml
+version: 3
+dependencies:
+  # Ces paquets sont installés dans l'image finale (CentOS 7, via yum)
+  system:
+    # Packages requis par l'image finale CentOS 7
+    # (Ils sont installés via le Containerfile que vous avez déjà défini)
+    packages:
+      - git
+      - wget
+
+
+  # Les dépendances Python (ansible, jinja2, etc.) sont gérées via requirements.txt
+  python: requirements.txt
+
+# --- Section pour l'image intermédiaire (Builder) ---
+# Indique à ansible-builder d'installer des paquets dans son image de construction (Fedora 38)
+# avant de télécharger/construire les dépendances Python.
+# 'dnf' est utilisé pour Fedora 38.
+additional_build_steps:
+  append:
+    - RUN dnf install -y gcc make

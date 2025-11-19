@@ -1,0 +1,8 @@
+[alma10_servers]
+[1:25].home
+
+[alma10_servers:vars]
+environment_name=development
+ansible_ssh_user=ansible
+private_key_file=/home/alma/.ssh/id_rsa
+ansible_python_interpreter=/usr/bin/python3.12

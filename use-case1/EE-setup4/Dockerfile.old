@@ -1,0 +1,63 @@
+# Containerfile
+# Utilisation de la base CentOS 7 standard
+FROM centos:7
+
+# Définition des variables d'environnement
+ENV ANSIBLE_PYTHON_INTERPRETER="/usr/bin/python"
+ENV ANSIBLE_USER="ansible"
+
+# --- PHASE 1 : Configuration du Vault, YUM et Outils Système ---
+
+# 1a. Remplacer les miroirs YUM par Vault (Critique pour CentOS 7 EOL)
+RUN sed -i 's|^mirrorlist=|#mirrorlist=|g' /etc/yum.repos.d/CentOS-* \
+    && sed -i 's|^#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-* \
+    && yum makecache
+
+# 1b. Installer EPEL et les dépendances principales
+RUN yum install -y epel-release \
+    && yum makecache \
+    && yum install -y \
+    # Outils pour AWX/EE
+    tini \
+    ansible \
+     # Ajout des paquets SSH (Client et Serveur)
+    openssh-clients \
+    openssh-server \
+    git \
+    sudo \
+    which \
+    # Dépendances Python 2.7 du système (avec pkg_resources stable)
+    python \
+    python-devel \
+    python-pip \
+    # Nettoyage
+    && yum clean all
+
+# --- PHASE 2 : Installation et Mise à Jour des Outils Python ---
+
+# Utiliser le chemin absolu /usr/bin/pip pour éviter les problèmes de $PATH.
+
+# 2a. Mise à jour/Rétrogradation des outils de base pour compatibilité Ansible 2.9
+RUN /usr/bin/pip install --upgrade pip==20.3.4 setuptools==44.1.1
+
+# 2b. Installation d'Ansible 2.9.27 et d'Ansible Runner (Résolution automatique des dépendances)
+# Si cette étape échoue, vous devrez ajouter manuellement les dépendances manquantes (comme psutil, pexpect).
+RUN /usr/bin/pip install \
+    'ansible==2.9.27' \
+    'ansible-runner==1.4.7'
+
+# --- PHASE 3 : Finalisation AWX et ENTRYPOINT ---
+
+# Créer l'utilisateur 'ansible' avec l'UID standard 1000
+RUN groupadd -r ansible && useradd -r -g ansible -u 1000 ansible -d /home/ansible \
+    && mkdir -p /home/ansible/.ssh /opt/app-root/src \
+    && chown -R ansible:ansible /home/ansible /opt/app-root/src \
+    && chmod -R 700 /home/ansible/.ssh
+
+# Définir l'utilisateur, le répertoire de travail, et le point d'entrée
+USER 1000
+WORKDIR /opt/app-root/src
+
+# ENTRYPOINT compatible AWX/Kubernetes : utilise tini pour la gestion des signaux
+ENTRYPOINT ["/usr/bin/tini", "--"]
+CMD ["/bin/bash"]

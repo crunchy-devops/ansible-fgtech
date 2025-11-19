@@ -1,0 +1,13 @@
+# requirements.txt
+# Core Ansible
+ansible-core
+ansible-runner
+
+# Testing Tools (Modern Dependency List)
+tox
+molecule
+ansible-lint
+testinfra
+
+# Molecule Driver (necessary for Molecule to provision containers)
+docker

@@ -1,0 +1,7 @@
+# requirements.yml
+# Ajoutez ici toutes les collections utilisées par vos rôles/playbooks/tests.
+collections:
+  - name: community.general
+    version: ">=6.0.0"
+  - name: ansible.posix
+    version: ">=1.0.0"

@@ -1,0 +1,5 @@
+---
+# Variable appliquée uniquement aux webservers
+http_port: 8080
+ansible_ssh_user: "ansible"
+ansible_ssh_private_key_file: "/home/alma/.ssh/id_rsa"

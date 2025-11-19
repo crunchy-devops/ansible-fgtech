@@ -1,0 +1,8 @@
+---
+- name: Lancer la commande ansible-pull
+  ansible.builtin.raw: /usr/bin/ansible-pull -U https://github.com/crunchy-devops/essai_ansible_pull.git -d /opt/ansible_pull_repo -i /opt/ansible_pull_repo/inventory /opt/ansible_pull_repo/create_file.yml
+  register: pull_raw_result
+
+- name: Afficher le résultat brut (ne sera pas un JSON)
+  ansible.builtin.debug:
+    msg: "{{ pull_raw_result.stdout }}"

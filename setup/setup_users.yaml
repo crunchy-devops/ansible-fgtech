@@ -1,0 +1,23 @@
+# setup_users.yml
+---
+- name: Configurer les utilisateurs de base
+  hosts: all
+  become: yes
+  tasks:
+    - name: Créer le groupe 'operations'
+      ansible.builtin.group:
+        name: operations
+        state: present
+
+    - name: Créer l'utilisateur 'ops_user'
+      ansible.builtin.user:
+        name: ops_user
+        group: operations
+        shell: /bin/bash
+        state: present
+
+    - name: Déployer la clé SSH pour 'ops_user'
+      ansible.posix.authorized_key:
+        user: ops_user
+        key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}" # Utilise votre propre clé publique
+        state: present

@@ -1,0 +1,107 @@
+---
+- name: Compile and Install Python 3.13.5 from Source
+  hosts: almalinux_hosts # <-- Change this to your inventory group
+  become: true # Required for installing dependencies and writing to /opt
+
+  vars:
+    python_version: "3.13.5"
+    install_dir: "/opt/python3135" # As per your request
+    source_tmp_dir: "/tmp/Python-{{ python_version }}"
+    # Use all available CPU cores for a faster compile
+    compile_threads: "{{ ansible_facts.processor_vcpus | default(1) }}"
+
+  tasks:
+    # --- START: NEW AND IMPROVED VERIFICATION LOGIC ---
+    - name: "1. Vérifier le statut de '{{ install_dir }}' avec le module stat"
+      ansible.builtin.stat:
+        path: "{{ install_dir }}"
+      register: dir_status # Enregistre le résultat dans une variable nommée 'dir_status'
+
+    - name: "2. Afficher les informations brutes (utile pour le débogage)"
+      ansible.builtin.debug:
+        var: dir_status
+
+    # --- END: NEW AND IMPROVED VERIFICATION LOGIC ---
+
+    # This entire block will be skipped if the python executable already exists
+    - name: Main Block for Python Compilation
+      when: not dir_status.stat.exists
+      block:
+        - name: 2. Install Python Build Dependencies (for RHEL/AlmaLinux)
+          ansible.builtin.dnf:
+            name:
+              - gcc
+              - make
+              - zlib-devel
+              - bzip2-devel
+              - readline-devel
+              - sqlite-devel
+              - openssl-devel
+              - libffi-devel
+              - xz-devel
+              - wget
+            state: present
+
+        - name: 3. Download Python Source Code
+          ansible.builtin.get_url:
+            url: "https://www.python.org/ftp/python/{{ python_version }}/Python-{{ python_version }}.tar.xz"
+            dest: "/tmp/Python-{{ python_version }}.tar.xz"
+            mode: '0644'
+
+        - name: 4. Unarchive Python Source
+          ansible.builtin.unarchive:
+            src: "/tmp/Python-{{ python_version }}.tar.xz"
+            dest: "/tmp"
+            remote_src: yes
+            creates: "{{ source_tmp_dir }}"
+
+        - name: 5. Configure the build with the correct prefix
+          ansible.builtin.command:
+            cmd: "./configure --prefix={{ install_dir }} --enable-optimizations"
+            chdir: "{{ source_tmp_dir }}"
+            creates: "{{ source_tmp_dir }}/Makefile"
+
+        - name: 6. Run 'make' (Long Running Task)
+          ansible.builtin.command:
+            cmd: "make -j{{ compile_threads }}"
+            chdir: "{{ source_tmp_dir }}"
+          async: 1800 # Allow up to 30 minutes for the task to run
+          poll: 30    # Check the status every 30 seconds
+          register: make_result
+
+        - name: 7. Run 'make altinstall' to prevent system python overwrite (Long Running Task)
+          ansible.builtin.command:
+            cmd: "make altinstall"
+            chdir: "{{ source_tmp_dir }}"
+          async: 1800 # Also allow up to 30 minutes
+          poll: 30
+          register: make_altinstall_result
+
+        - name: Confirm successful installation
+          ansible.builtin.debug:
+            msg: "Python {{ python_version }} was successfully compiled and installed in {{ install_dir }}"
+
+      rescue:
+        - name: RESCUE - A failure occurred during the Python compilation process.
+          ansible.builtin.fail:
+            msg: |
+              COMPILATION FAILED! Check for the *first* error message below.
+              It is likely a missing dependency or an Out of Memory error.
+
+              ------------------- STDERR from 'make' -------------------
+              {{ make_result.stderr | default('No stderr from make.') }}
+              ----------------------------------------------------------
+
+              ------------------- STDERR from 'make altinstall' --------
+              {{ make_altinstall_result.stderr | default('No stderr from make altinstall.') }}
+              ----------------------------------------------------------
+
+      always:
+        - name: ALWAYS - Clean up source files and archives
+          ansible.builtin.file:
+            path: "{{ item }}"
+            state: absent
+          loop:
+            - "{{ source_tmp_dir }}"
+            - "/tmp/Python-{{ python_version }}.tar.xz"
+          when: not ansible_check_mode # Do not cleanup in check mode

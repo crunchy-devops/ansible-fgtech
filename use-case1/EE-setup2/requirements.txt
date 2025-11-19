@@ -1,0 +1,3 @@
+# Fichier requirements.txt
+# Ansible 2.9.13 doit être épinglé
+ansible==2.9.13

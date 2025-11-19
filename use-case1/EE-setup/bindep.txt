@@ -1,0 +1,7 @@
+# bindep.txt
+# Les dépendances critiques sont déjà dans prepend_base, mais nous les listons ici
+# si la méthode 'system:' était priorisée.
+python3-devel
+gcc
+libffi-devel
+openssl-devel

@@ -1,0 +1,44 @@
+---
+version: 3
+
+images:
+  base_image:
+    name: almalinux:9
+
+dependencies:
+  # 🚨 NOUVEAU : Installer ansible-core et ansible-runner ici,
+  # non plus via 'RUN pip3 install...' dans prepend_base.
+  ansible_core:
+    package_pip: ansible-core  # Installera la dernière version stable
+  ansible_runner:
+    package_pip: ansible-runner
+
+  # Les dépendances Python (tox, molecule) passent par requirements.txt
+  python: requirements.txt
+
+  # Les dépendances système requises par la compilation Python passent par bindep.txt
+  system: bindep.txt
+
+  # Collections Ansible
+  galaxy: requirements.yml
+
+additional_build_steps:
+
+  # A. Étapes avant l'installation des dépendances (Paquets Système et PATH)
+  prepend_base:
+    # 1. Installation des outils système (pip, compilation)
+    - RUN dnf -y update && dnf install -y python3-pip python3-devel gcc git tar unzip && dnf clean all
+
+    # 2. Ajuster le PATH pour que 'ansible' soit trouvé après son installation par le builder
+    - ENV PATH="/usr/local/bin:$PATH"
+
+  # B. Création de l'utilisateur AWX (UID 1000)
+  prepend:
+    - RUN groupadd -g 1000 awx
+    - RUN useradd -u 1000 -g awx -m -s /bin/bash awx
+    - RUN mkdir -p /opt/app-root/src && chown 1000:1000 /opt/app-root/src
+
+  # C. Finalisation
+  append:
+    - USER awx
+    - WORKDIR /opt/app-root/src

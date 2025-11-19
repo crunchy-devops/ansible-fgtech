@@ -1,0 +1,54 @@
+#!/bin/bash
+
+# This script creates 50 Docker containers with incremental names and hostnames.
+
+docker run -d --name systemd-1 --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:rw --hostname=1.home --cgroupns=host docker-systemd:almalinux-9
+docker run -d --name systemd-2 --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:rw --hostname=2.home --cgroupns=host docker-systemd:almalinux-9
+docker run -d --name systemd-3 --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:rw --hostname=3.home --cgroupns=host docker-systemd:almalinux-9
+docker run -d --name systemd-4 --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:rw --hostname=4.home --cgroupns=host docker-systemd:almalinux-9
+docker run -d --name systemd-5 --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:rw --hostname=5.home --cgroupns=host docker-systemd:almalinux-9
+docker run -d --name systemd-6 --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:rw --hostname=6.home --cgroupns=host docker-systemd:almalinux-9
+docker run -d --name systemd-7 --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:rw --hostname=7.home --cgroupns=host docker-systemd:almalinux-9
+docker run -d --name systemd-8 --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:rw --hostname=8.home --cgroupns=host docker-systemd:almalinux-9
+docker run -d --name systemd-9 --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:rw --hostname=9.home --cgroupns=host docker-systemd:almalinux-9
+docker run -d --name systemd-10 --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:rw --hostname=10.home --cgroupns=host docker-systemd:almalinux-9
+docker run -d --name systemd-11 --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:rw --hostname=11.home --cgroupns=host docker-systemd:almalinux-9
+docker run -d --name systemd-12 --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:rw --hostname=12.home --cgroupns=host docker-systemd:almalinux-9
+docker run -d --name systemd-13 --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:rw --hostname=13.home --cgroupns=host docker-systemd:almalinux-9
+docker run -d --name systemd-14 --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:rw --hostname=14.home --cgroupns=host docker-systemd:almalinux-9
+docker run -d --name systemd-15 --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:rw --hostname=15.home --cgroupns=host docker-systemd:almalinux-9
+docker run -d --name systemd-16 --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:rw --hostname=16.home --cgroupns=host docker-systemd:almalinux-9
+docker run -d --name systemd-17 --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:rw --hostname=17.home --cgroupns=host docker-systemd:almalinux-9
+docker run -d --name systemd-18 --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:rw --hostname=18.home --cgroupns=host docker-systemd:almalinux-9
+docker run -d --name systemd-19 --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:rw --hostname=19.home --cgroupns=host docker-systemd:almalinux-9
+docker run -d --name systemd-20 --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:rw --hostname=20.home --cgroupns=host docker-systemd:almalinux-9
+docker run -d --name systemd-21 --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:rw --hostname=21.home --cgroupns=host docker-systemd:almalinux-9
+docker run -d --name systemd-22 --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:rw --hostname=22.home --cgroupns=host docker-systemd:almalinux-9
+docker run -d --name systemd-23 --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:rw --hostname=23.home --cgroupns=host docker-systemd:almalinux-9
+docker run -d --name systemd-24 --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:rw --hostname=24.home --cgroupns=host docker-systemd:almalinux-9
+docker run -d --name systemd-25 --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:rw --hostname=25.home --cgroupns=host docker-systemd:almalinux-9
+docker run -d --name systemd-26 --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:rw --hostname=26.home --cgroupns=host docker-systemd:almalinux-9
+docker run -d --name systemd-27 --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:rw --hostname=27.home --cgroupns=host docker-systemd:almalinux-9
+docker run -d --name systemd-28 --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:rw --hostname=28.home --cgroupns=host docker-systemd:almalinux-9
+docker run -d --name systemd-29 --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:rw --hostname=29.home --cgroupns=host docker-systemd:almalinux-9
+docker run -d --name systemd-30 --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:rw --hostname=30.home --cgroupns=host docker-systemd:almalinux-9
+docker run -d --name systemd-31 --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:rw --hostname=31.home --cgroupns=host docker-systemd:almalinux-9
+docker run -d --name systemd-32 --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:rw --hostname=32.home --cgroupns=host docker-systemd:almalinux-9
+docker run -d --name systemd-33 --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:rw --hostname=33.home --cgroupns=host docker-systemd:almalinux-9
+docker run -d --name systemd-34 --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:rw --hostname=34.home --cgroupns=host docker-systemd:almalinux-9
+docker run -d --name systemd-35 --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:rw --hostname=35.home --cgroupns=host docker-systemd:almalinux-9
+docker run -d --name systemd-36 --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:rw --hostname=36.home --cgroupns=host docker-systemd:almalinux-9
+docker run -d --name systemd-37 --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:rw --hostname=37.home --cgroupns=host docker-systemd:almalinux-9
+docker run -d --name systemd-38 --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:rw --hostname=38.home --cgroupns=host docker-systemd:almalinux-9
+docker run -d --name systemd-39 --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:rw --hostname=39.home --cgroupns=host docker-systemd:almalinux-9
+docker run -d --name systemd-40 --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:rw --hostname=40.home --cgroupns=host docker-systemd:almalinux-9
+docker run -d --name systemd-41 --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:rw --hostname=41.home --cgroupns=host docker-systemd:almalinux-9
+docker run -d --name systemd-42 --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:rw --hostname=42.home --cgroupns=host docker-systemd:almalinux-9
+docker run -d --name systemd-43 --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:rw --hostname=43.home --cgroupns=host docker-systemd:almalinux-9
+docker run -d --name systemd-44 --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:rw --hostname=44.home --cgroupns=host docker-systemd:almalinux-9
+docker run -d --name systemd-45 --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:rw --hostname=45.home --cgroupns=host docker-systemd:almalinux-9
+docker run -d --name systemd-46 --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:rw --hostname=46.home --cgroupns=host docker-systemd:almalinux-9
+docker run -d --name systemd-47 --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:rw --hostname=47.home --cgroupns=host docker-systemd:almalinux-9
+docker run -d --name systemd-48 --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:rw --hostname=48.home --cgroupns=host docker-systemd:almalinux-9
+docker run -d --name systemd-49 --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:rw --hostname=49.home --cgroupns=host docker-systemd:almalinux-9
+docker run -d --name systemd-50 --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:rw --hostname=50.home --cgroupns=host docker-systemd:almalinux-9

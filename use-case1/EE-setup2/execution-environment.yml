@@ -1,0 +1,18 @@
+# execution-environment.yml
+version: 3
+
+
+# L'étape CRUCIALE : Indiquer à ansible-builder d'utiliser le contenu
+# de ce fichier comme base du processus de construction,
+# en ignorant son processus d'injection de dépendances standard.
+containerfile: Dockerfile.old
+# Laissez les sections 'dependencies' vides ou absentes
+# pour indiquer à ansible-builder de ne pas essayer d'installer
+# automatiquement les dépendances Python, que nous gérons manuellement.
+dependencies: {}
+
+# Nous laissons une section pour les étapes de construction (même si notre Containerfile
+# gère tout, c'est une bonne pratique).
+additional_build_steps:
+  prepend_base:
+    - RUN echo This is a prepend base command!
