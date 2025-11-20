@@ -1,0 +1,22 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for postgresql.role
+#
+- include_tasks: variables.yml
+
+# Setup /install task
+
+- include_tasks: setup-package.yml 
+  #when: ansible_distribution == 'Almalinux'
+
+- include_tasks: initialize.yml
+
+- name: Ensure Postgresql is started and enable on boot
+  service:
+    name: "{{ postgresql_daemon }}"
+    state: "{{ postgresql_service_state }}"
+    enabled: "{{ postgresql_service_enabled }}"
+
+- import_tasks: users.yml
+
+

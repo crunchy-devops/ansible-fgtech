@@ -71,7 +71,7 @@ kubectl get secret -n awx  awx-demo-admin-password -o jsonpath="{.data.password}
 Change your password to a simple one
 ## Web access
 ```
-kubectl port-forward -n awx service/awx-demo-service 30540:80 --address='0.0.0.0' &
+kubectl port-forward -n awx service/awx-demo-service 80:80 --address='0.0.0.0' &
 ```
 access to AWX with http://<ip>:30540
 

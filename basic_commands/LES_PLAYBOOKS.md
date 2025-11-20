@@ -154,7 +154,7 @@ Creez un fichier postgres.yml
 ```yaml
 ---
 - name: use a dedicated Ansible postgresql role
-  hosts: leader
+  hosts: alma10
   become: yes
   roles:
     - { role: postgresql.role }
