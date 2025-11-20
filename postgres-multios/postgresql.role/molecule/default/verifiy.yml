@@ -1,0 +1,33 @@
+---
+- name: Verify
+  hosts: all
+  become: yes
+  gather_facts: no
+
+  tasks:
+    - name: "Vérifier que le paquet PostgreSQL est installé (exemple)"
+      package:
+        name: "postgresql-server" # Adaptez le nom du paquet si nécessaire
+        state: present
+      check_mode: yes # Ne fait aucune modification, vérifie juste l'état
+      register: pkg_status
+
+    - name: "Affirmer que le paquet a été trouvé"
+      assert:
+        that:
+          - not pkg_status.changed
+        msg: "Le paquet postgresql-server n'a pas été trouvé comme étant déjà installé."
+
+    - name: "Vérifier que le service PostgreSQL est démarré et activé (exemple)"
+      service:
+        name: "postgresql" # Adaptez le nom du service
+        state: started
+        enabled: yes
+      check_mode: yes
+      register: svc_status
+
+    - name: "Affirmer que le service est dans le bon état"
+      assert:
+        that:
+          - not svc_status.changed
+        msg: "Le service postgresql n'était pas démarré et activé."
