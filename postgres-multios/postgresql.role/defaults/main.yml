@@ -14,4 +14,4 @@ postgresql_service_enabled: true
 
 postgresql_users_no_log: true
 
-postgresql_users: [hme]
+postgresql_users: []

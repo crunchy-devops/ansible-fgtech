@@ -1,0 +1,29 @@
+---
+# Version du format de la definition de l'EE
+version: 3
+
+# Nom de l'image de base (une image Red Hat universelle est souvent utilisee)
+# Utilisez une image de base minimaliste si vous connaissez bien vos dependances
+# Exemple : registry.access.redhat.com/ubi8/python-39 (ou ubi9)
+# Pour Kind/Docker local, une image generique est plus simple.
+# base_image: 'quay.io/ansible/ansible-runner:latest' # Image de base generique
+
+# Les dependances a installer
+dependencies:
+  # 1. Dependances Ansible (Collections)
+  galaxy: requirements.yml
+
+  # 2. Dependances Python (Modules pour les collections)
+  python:
+    # Modules pour les collections BDD/Cloud
+    - psycopg2-binary # Pour community.postgresql
+    - PyMySQL         # Pour community.mysql
+    - boto3           # Pour amazon.aws
+    - botocore        # Pour amazon.aws
+
+    # Outils de developpement et de qualite (Ansible Lint / Format)
+    - ansible-lint
+    - ansible-format
+
+
+

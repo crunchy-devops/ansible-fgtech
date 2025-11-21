@@ -1,6 +1,12 @@
-ansible
-molecule
-molecule-docker
-docker
-ansible-lint
-yamllint
+---
+collections:
+  # Collections systeme et generalistes
+  - name: community.general
+  - name: ansible.posix
+  
+  # Collections pour les bases de donnees (necessite des dependances Python)
+  - name: community.postgresql
+  - name: community.mysql
+  
+  # Collection Cloud (Exemple)
+  - name: amazon.aws
