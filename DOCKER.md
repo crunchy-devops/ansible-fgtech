@@ -1,6 +1,6 @@
 # Docker 
 
-## install docker on almalinux 9
+## install docker on almalinux 10
 ```shell
 sudo dnf -y --refresh update
 sudo dnf upgrade
@@ -13,12 +13,22 @@ sudo systemctl status docker
 docker --version
 id
 sudo usermod -aG docker alma
+# restart pycharm 
+id 
+docker ps
+```
+
+## docker compose 
+```shell
+sudo curl -L "https://github.com/docker/compose/releases/download/v2.40.3/docker-compose-linux-x86_64"  -o  /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+docker-compose --version
 ```
 
 ### Install portainer for managing containers
 ```shell
 docker volume create portainer_data
-docker run -d -p 32125:8000 -p 443:9443 --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock \
- -v portainer_data:/data portainer/portainer-ce:2.27.0-alpine
+docker run -d -p 32125:8000 -p 30540:9443 --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock \
+ -v portainer_data:/data portainer/portainer-ce:2.20.2-alpine
 ```
-Log in immediattely 
+There is a timeout login immediately

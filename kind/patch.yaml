@@ -1,9 +1,0 @@
-# patch-awx-pod-override.yaml
-# Ce patch ajoute le champ 'podSpecOverride' à la ressource AWX existante.
-apiVersion: awx.ansible.com/v1beta1
-kind: AWX
-metadata:
-  name: awx # 🚨 ADAPTEZ : Le nom de votre ressource AWX dans le cluster
-spec:
-  # Le champ 'podSpecOverride' prend le nom du Secret créé précédemment.
-  podSpecOverride: molecule-override-secret-name

@@ -2,6 +2,7 @@
 
 ## install on kubernetes kind
 ```shell
+sudo dnf install -y  wget git 
 wget https://github.com/kubernetes-sigs/kind/releases/download/v0.30.0/kind-linux-amd64
 mv kind-linux-amd64 kind
 chmod +x kind
@@ -18,7 +19,7 @@ alias ks='kubectl'
 source <(kubectl completion bash | sed s/kubectl/ks/g)
 # check 
 kubectl version
-# should be version 1.34.1
+# should be version 1.34.2
 ```
 
 ## Create a cluster
@@ -27,6 +28,7 @@ cd /home/alma/ansible-fgtech/kind
 kind create cluster --name awx --config kind-config-cluster.yml
 ks version # should be version  v1.34.1+
 ks get nodes # see one controle-plane and 3 workers
+kubectl cluster-info --context kind-awx
 # kind delete cluster --name awx
 ```
 
@@ -39,28 +41,48 @@ git checkout tags/2.19.1
 git log --oneline  # HEAD should be on tag 2.19.1 #hash dd37ebd
 
 ```
-
-### Manually create file kustomization.yaml
+## Create s namespace
+```shell
+kubectl create namespace awx
+```
+### Check the file kustomization.yaml in awx directory
 ```yaml
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   # Find the latest tag here: https://github.com/ansible/awx-operator/releases
   - github.com/ansible/awx-operator/config/default?ref=2.19.1
-  #vi - awx-demo.yml
+  - awx-demo.yaml
 # Set the image tags to match the git version from above
 images:
   - name: quay.io/ansible/awx-operator
     newTag: 2.19.1
-
 # Specify a custom namespace in which to install AWX
 namespace: awx
 ```
-```ks create ns awx```
-```ks apply -k . ```  # run twice(??) this command
 
-Wait 15 minutes
-And check with ```ks get pod -A``` # all K8s objects should be running, completed 
+
+## or copy file kustomization.yaml
+```shell
+cp ../ansible-fgtech/kind/kustomization.yaml .
+```
+
+## run
+```ks apply -k . ```  # 
+
+##  Deploy AWX Instance with HTTPS Configuration
+```yaml
+apiVersion: awx.ansible.com/v1beta1
+kind: AWX
+metadata:
+  name: awx-demo
+  namespace: awx
+spec:
+
+```
+
+wait nearly 10 minutes
+
 
 ## User AWX
 username admin
@@ -68,12 +90,12 @@ Password uses the command below
 ```shell
 kubectl get secret -n awx  awx-demo-admin-password -o jsonpath="{.data.password}" | base64 --decode ; echo
 ```
-Change your password to a simple one
+
 ## Web access
 ```
-kubectl port-forward -n awx service/awx-demo-service 80:80 --address='0.0.0.0' &
+kubectl port-forward -n awx service/awx-demo-service 30600:80 --address='0.0.0.0' &
 ```
-access to AWX with http://<ip>:30540
+access to AWX with http://<ip>:30600
 
 
 ## Troubleshooting to prevent job template failure in AWX
@@ -84,6 +106,4 @@ echo fs.file-max = 2097152 | sudo tee -a /etc/sysctl.conf
 sudo sysctl -p
 ```
 
-
-
-```
+See directory nginx for having https and reverse proxy for AWX
