@@ -2,23 +2,10 @@
 
 1.home
 
-
-[alpine:vars]
-environment_name=development
-ansible_ssh_user=devops
-private_key_file=/home/alma/.ssh/id_rsa
-ansible_python_interpreter=/usr/bin/python3
-
 [alma10:vars]
 environment_name=development
 ansible_tmp=/tmp/.ansible-tmp
-ansible_ssh_user=ansible
+ansible_user=ansible
 private_key_file=/home/alma/.ssh/id_rsa
 ansible_python_interpreter=/usr/bin/python3
 
-
-[ubuntu:vars]
-environment_name=development
-ansible_ssh_user=root
-private_key_file=/home/alma/.ssh/id_rsa
-ansible_python_interpreter=/usr/bin/python3
