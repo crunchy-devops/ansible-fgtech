@@ -6,8 +6,8 @@
     state: present
 
 
-#- name: Use the package python-library
-#  ansible.builtin.package:
-#    name: " {{ postgresql_python_library }} "
-#    state: present
+- name: Use the package python-library
+  ansible.builtin.package:
+    name: " {{ postgresql_python_library }} "
+    state: present
 

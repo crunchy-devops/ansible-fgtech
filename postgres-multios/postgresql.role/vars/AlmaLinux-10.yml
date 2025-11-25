@@ -6,6 +6,6 @@ postgresql_daemon: postgresql
 postgresql_packages:
   - postgresql-server
   - postgresql-contrib
-#postgresql_python_library:
-#  - postgresql-plpython3
-#  - python3-psycopg2
+postgresql_python_library:
+  - postgresql-plpython3
+  - python3-psycopg2

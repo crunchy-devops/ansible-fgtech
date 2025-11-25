@@ -1,0 +1,4 @@
+---
+collections:
+  - name: community.postgresql
+    version: "4.1.0" # Utilisez la version stable souhaitée
