@@ -1,11 +1,18 @@
-
-postgresql_data_dir: "/var/lib/pgsql/data"
-postgresql_bin_path: "/usr/bin"
-postgresql_config_path: "/var/lib/pgsql/data"
-postgresql_daemon: postgresql
+---
+# Variables for AlmaLinux 10
 postgresql_packages:
+  - postgresql
   - postgresql-server
   - postgresql-contrib
-postgresql_python_library:
-  - postgresql-plpython3
-  - python3-psycopg2
+
+postgresql_python_library: python3-psycopg2
+
+postgresql_daemon: postgresql
+postgresql_bin_path: /usr/bin
+postgresql_data_dir: /var/lib/pgsql/data
+postgresql_config_path: /var/lib/pgsql/data
+postgresql_init_path: /usr/bin
+
+postgresql_admin_user: postgres
+postgresql_user: postgres
+postgresql_group: postgres
