@@ -1,0 +1,14 @@
+[Unit]
+Description=Kubernetes Kind Port Forwarding
+After=network.target
+
+[Service]
+LimitNOFILE=10000
+ExecStart=/usr/local/bin/kubectl port-forward -n awx service/awx-demo-service 30600:80
+Restart=always
+User=alma
+Environmnent=KUBECONFIG=/home/alma/.kube
+
+[Install]
+WantedBy=mulit-user.target
+
