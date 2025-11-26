@@ -1,7 +1,6 @@
 ---
-- name: use a dedicated Ansible postgresql role
+- name: use a dedicated postgresql role
   hosts: alma10
   become: yes
-  serial: 20
   roles:
     - { role: postgresql.role }
