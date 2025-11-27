@@ -1,10 +1,10 @@
 [alma10]
 1.home ansible_host=170.75.167.89
 
-[containers-alma]
+[containers_alma]
 2.home ansible_host=172.17.0.3
 
-[containers-alma:vars]
+[containers_alma:vars]
 environment_name=development
 ansible_tmp=/tmp/.ansible-tmp
 ansible_user=ansible

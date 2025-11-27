@@ -5,4 +5,4 @@ collections:
 
   # Ajout de la collection contenant 'profile_tasks'
   - name: ansible.posix
-    version: "2.1.0" # Utilisez la version stable souhaitée
+    version: "1.5.4" # Utilisez la version stable souhaitée
