@@ -1,6 +1,6 @@
 ---
 - name: use a dedicated postgresql role
-  hosts: alma10
+  hosts: all
   become: yes
   roles:
     - { role: postgresql.role }
