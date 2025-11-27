@@ -2,3 +2,7 @@
 collections:
   - name: community.postgresql
     version: "4.1.0" # Utilisez la version stable souhaitée
+
+  # Ajout de la collection contenant 'profile_tasks'
+  - name: ansible.posix
+    version: "2.1.0" # Utilisez la version stable souhaitée
