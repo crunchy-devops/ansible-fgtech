@@ -97,6 +97,11 @@ kubectl port-forward -n awx service/awx-demo-service 30600:80 --address='0.0.0.0
 ```
 access to AWX with http://<ip>:30600
 
+## Caveats
+```shell
+# Check AWX web pod 
+ks exec --stdin --tty -n awx  awx-demo-web-66587ff4b-hvzsf -- /bin/bash
+```
 
 ## Troubleshooting to prevent job template failure in AWX
 ```shell

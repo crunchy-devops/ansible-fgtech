@@ -1,6 +1,6 @@
 ---
 - name: Gérer le fichier de configuration avec sauvegarde horodatée
-  hosts: alma10
+  hosts: all
   become: yes
   vars:
     config_file: /etc/myapp/config.conf
