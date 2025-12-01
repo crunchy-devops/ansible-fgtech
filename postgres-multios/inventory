@@ -2,13 +2,12 @@
 1.home ansible_host=170.75.167.89
 
 [containers_alma]
-2.home ansible_host=127.0.0.1
+2.home ansible_host=172.17.0.3
 
 [containers_alma:vars]
 environment_name=development
 ansible_tmp=/tmp/.ansible-tmp
 ansible_user=ansible
-ansible_port=2222
 private_key_file=/home/alma/.ssh/id_rsa
 ansible_python_interpreter=/usr/bin/python3
 
