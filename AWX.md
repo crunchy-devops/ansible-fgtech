@@ -60,17 +60,7 @@ images:
 # Specify a custom namespace in which to install AWX
 namespace: awx
 ```
-
-
-## or copy file kustomization.yaml
-```shell
-cp ../ansible-fgtech/kind/kustomization.yaml .
-```
-
-## run
-```ks apply -k . ```  # 
-
-##  Deploy AWX Instance with HTTPS Configuration
+##  Deploy awx-demo.ym; AWX Instance 
 ```yaml
 apiVersion: awx.ansible.com/v1beta1
 kind: AWX
@@ -78,8 +68,21 @@ metadata:
   name: awx-demo
   namespace: awx
 spec:
-
+  service_type: nodeport
 ```
+
+## or copy file kustomization.yaml
+```shell
+cp ../ansible-fgtech/kind/kustomization.yaml .
+cp ../ansible-fgtech/kind/awx-demo.yaml .
+```
+
+## run
+```shell
+ks apply -k . 
+ks get pod -A
+```  # 
+
 
 wait nearly 10 minutes
 
@@ -93,9 +96,18 @@ kubectl get secret -n awx  awx-demo-admin-password -o jsonpath="{.data.password}
 
 ## Web access
 ```
-kubectl port-forward -n awx service/awx-demo-service 30600:80 --address='0.0.0.0' &
+# example
+kubectl port-forward -n awx service/awx-demo-service 30600:80  &
 ```
 access to AWX with http://<ip>:30600
+
+## Apply a systemctl service 
+```shell
+cd  ansible-fgtech/kind 
+sudo cp kind-port-forward.service /etc/systemd/system/ 
+sudo systemctl start kind-port-forward.service 
+sudo systemctl status kind-port-forward.service 
+```
 
 ## Caveats
 ```shell
@@ -111,4 +123,4 @@ echo fs.file-max = 2097152 | sudo tee -a /etc/sysctl.conf
 sudo sysctl -p
 ```
 
-See directory nginx for having https and reverse proxy for AWX
+Go to the directory nginx for setting up https access and reverse proxy for AWX

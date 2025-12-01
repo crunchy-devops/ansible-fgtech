@@ -1,7 +1,8 @@
-# setup https and reverse proxy ngnix for AWX
+# setup https and reverse proxy nginx for AWX
 
 ## install nginx 
 ```shell
+cd
 sudo dnf update
 sudo dnf install nginx -y
 sudo nginx -v
@@ -89,3 +90,4 @@ sudo systemctl stop firewalld
 sudo setenforce 0
 ```
 
+Go to CONTAINERS_POOL.md
