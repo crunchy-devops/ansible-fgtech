@@ -2,7 +2,7 @@
 1.home ansible_host=170.75.167.89
 
 [containers_alma]
-2.home ansible_host=172.17.0.3
+2.home ansible_host=172.17.0.3 ansible_port=22
 
 [containers_alma:vars]
 environment_name=development
