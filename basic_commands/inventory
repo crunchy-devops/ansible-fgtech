@@ -1,6 +1,6 @@
 [alma10]
 1.home
-2.home ansible_host=172.17.0.3 ansible_port=22
+2.home ansible_host=192.168.1.39 ansible_port=2222
 
 [alpine]
 5.home

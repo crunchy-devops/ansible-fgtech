@@ -22,7 +22,7 @@ kubectl version
 # should be version 1.34.2
 ```
 
-## Create a cluster
+## Create a kind cluster
 ```shell
 cd /home/alma/ansible-fgtech/kind
 kind create cluster --name awx --config kind-config-cluster.yml
@@ -60,7 +60,7 @@ images:
 # Specify a custom namespace in which to install AWX
 namespace: awx
 ```
-##  Deploy awx-demo.ym; AWX Instance 
+##  Deploy awx-demo.yml AWX Instance 
 ```yaml
 apiVersion: awx.ansible.com/v1beta1
 kind: AWX
@@ -71,7 +71,7 @@ spec:
   service_type: nodeport
 ```
 
-## or copy file kustomization.yaml
+## or copy files kustomization.yaml amd awx.yml
 ```shell
 cp ../ansible-fgtech/kind/kustomization.yaml .
 cp ../ansible-fgtech/kind/awx-demo.yaml .
@@ -82,8 +82,6 @@ cp ../ansible-fgtech/kind/awx-demo.yaml .
 ks apply -k . 
 ks get pod -A
 ```  # 
-
-
 wait nearly 10 minutes
 
 
@@ -97,11 +95,11 @@ kubectl get secret -n awx  awx-demo-admin-password -o jsonpath="{.data.password}
 ## Web access
 ```
 # example
-kubectl port-forward -n awx service/awx-demo-service 30600:80  &
+kubectl port-forward -n awx service/awx-demo-service 30600:80  --address 0.0.0.0 &
 ```
 access to AWX with http://<ip>:30600
 
-## Apply a systemctl service 
+## Apply a systemctl for AWX service 
 ```shell
 cd  ansible-fgtech/kind 
 sudo cp kind-port-forward.service /etc/systemd/system/ 
