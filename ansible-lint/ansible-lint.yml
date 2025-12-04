@@ -1,0 +1,18 @@
+---
+# Configuration de ansible-lint pour le projet
+
+# Règles à ignorer :
+# Exemples courants dans les labs (à éviter en production)
+skip_list:
+  # Utilisation de 'latest' sur les paquets (Sécurité/Idempotence)
+  - no-latest-arg
+  # Utilisation du module 'command' au lieu de 'shell'
+  - command-instead-of-module
+
+# Règles à inclure (pour renforcer la sécurité ou la lisibilité)
+# warn_list:
+#   - naming-yaml
+
+# Exclure des chemins (par exemple, les dépendances externes)
+# exclude_paths:
+#   - roles/external_role/

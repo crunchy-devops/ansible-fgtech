@@ -107,6 +107,17 @@ sudo systemctl start kind-port-forward.service
 sudo systemctl status kind-port-forward.service 
 ```
 
+## Add Kind into the default docker bridge
+```shell
+docker network inspect kind | grep Subnet
+docker network inspect bridge | grep Subnet
+docker network connect bridge  awx-control-plane
+docker network connect bridge  awx-worker
+docker network inspect awx-worker | grep IPAddress
+docker  inspect awx-worker | grep IPAddress
+docker  inspect awx-control-plane | grep IPAddress
+```
+
 ## Caveats
 ```shell
 # Check AWX web pod 

@@ -1,0 +1,25 @@
+---
+- name: Essai ansible-lint
+- hosts: all
+  become: true
+  tasks:
+    - name: Run command
+      ansible.builtin.command: apt install python3 -y
+      register: result
+      change_when: result.rc =! 0
+    - name: Install nginx
+      ansible.builtin.package:
+        name: nginx
+        state: present
+      notify: restart nginx
+
+    - name: Ensure service is running
+      ansible.builtin.service:
+        name: nginx
+        state: started
+
+  handlers:
+    - name: Restart nginx
+      ansible.builtin.service:
+        name: nginx
+        state: restarted
